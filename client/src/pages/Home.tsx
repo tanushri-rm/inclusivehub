@@ -6,6 +6,10 @@ import CommunityPost from "@/components/CommunityPost";
 import EducationModule from "@/components/EducationModule";
 import VoiceInputButton from "@/components/VoiceInputButton";
 import AIChat from "@/components/AIChat";
+import NGOCard from "@/components/NGOCard";
+import CrowdfundingCard from "@/components/CrowdfundingCard";
+import MapView from "@/components/MapView";
+import Footer from "@/components/Footer";
 import { Mic, Map, ShoppingBag, Users, BookOpen, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -66,10 +70,25 @@ export default function Home() {
       <section className="py-16 bg-card">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold">Featured Places</h2>
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Featured Places</h2>
+              <p className="text-muted-foreground">Discover accessible locations near you</p>
+            </div>
             <Button variant="outline" data-testid="button-view-all-places">
               View All
             </Button>
+          </div>
+
+          <div className="mb-8">
+            <MapView
+              locations={[
+                { id: '1', name: 'City General Hospital', lat: 37.7749, lng: -122.4194, type: 'hospital' },
+                { id: '2', name: 'Harmony Cafe', lat: 37.7849, lng: -122.4094, type: 'restaurant' },
+                { id: '3', name: 'Metro Shopping Center', lat: 37.7649, lng: -122.4294, type: 'mall' },
+              ]}
+              center={{ lat: 37.7749, lng: -122.4194 }}
+              onLocationClick={(loc) => console.log('Selected location:', loc.name)}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -198,6 +217,86 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className="py-16 bg-card">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold mb-2">NGO Partners</h2>
+            <p className="text-muted-foreground">Organizations making accessibility a reality</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <NGOCard
+              name="Access Alliance"
+              description="Dedicated to creating accessible infrastructure and advocating for disability rights worldwide"
+              focus={["Infrastructure", "Advocacy", "Education"]}
+              website="https://example.org"
+              membersSupported={15000}
+            />
+            <NGOCard
+              name="Inclusive Futures"
+              description="Empowering individuals with disabilities through technology training and job placement programs"
+              focus={["Employment", "Training", "Technology"]}
+              website="https://example.org"
+              membersSupported={8500}
+            />
+            <NGOCard
+              name="Mobility First"
+              description="Providing mobility aids and assistive devices to communities in need across 50 countries"
+              focus={["Mobility", "Healthcare", "Community"]}
+              website="https://example.org"
+              membersSupported={22000}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold mb-2">Active Campaigns</h2>
+            <p className="text-muted-foreground">Support community-driven accessibility projects</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <CrowdfundingCard
+              title="Accessible Playground Equipment"
+              organizer="Community First Initiative"
+              description="Help us build an inclusive playground with wheelchair-accessible swings, sensory play areas, and adaptive equipment for all children"
+              goal={25000}
+              raised={18500}
+              backers={234}
+              daysLeft={15}
+              category="Community"
+              imageUrl="https://images.unsplash.com/photo-1586105449897-20b5efeb3229?w=400&h=300&fit=crop"
+            />
+            <CrowdfundingCard
+              title="Audio Description Library"
+              organizer="Sight & Sound Foundation"
+              description="Creating audio descriptions for 1000+ classic films to make cinema accessible for visually impaired audiences"
+              goal={40000}
+              raised={32800}
+              backers={512}
+              daysLeft={8}
+              category="Arts & Culture"
+              imageUrl="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=300&fit=crop"
+            />
+            <CrowdfundingCard
+              title="Sign Language Education Program"
+              organizer="Hands Together Learning"
+              description="Free sign language courses for families and educators to improve communication with deaf and hard-of-hearing individuals"
+              goal={15000}
+              raised={9200}
+              backers={156}
+              daysLeft={22}
+              category="Education"
+              imageUrl="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=300&fit=crop"
+            />
+          </div>
+        </div>
+      </section>
+
+      <Footer />
 
       <div className="fixed bottom-6 right-6 z-40">
         <VoiceInputButton
